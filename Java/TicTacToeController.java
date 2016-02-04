@@ -36,5 +36,6 @@ public class TicTacToeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)
     {
         gridPane.setGridLinesVisible(true);
+
     }
 }
