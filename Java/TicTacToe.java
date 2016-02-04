@@ -1,5 +1,8 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -9,15 +12,13 @@ public class TicTacToe extends Application
         launch(args);
     }
 
-    //@Override
+    @Override
     public void start(Stage primary) throws Exception
     {
-        primary.setTitle("Tic-Tac-Toe");
-        VBox vbox = new VBox();
-        GridPane board = new GridPane();
-        vbox.getChildren().add(board);
-        Scene scene = new Scene(vbox, 800, 800);
+        Parent root = FXMLLoader.load(getClass().getResource("TicTacToe.fxml"));
+        Scene scene = new Scene(root);
         primary.setScene(scene);
+        primary.setTitle("Tic-Tac-Toe");
         primary.show();
     }
 }
