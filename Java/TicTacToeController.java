@@ -1,13 +1,16 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,4 +57,11 @@ public class TicTacToeController implements Initializable {
         this.colIndex = colIndex;
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
     }
+
+    @FXML
+    private void handleClose(ActionEvent event) {
+        System.exit(0);
+        Platform.exit();
+    }
+
 }
