@@ -1,6 +1,7 @@
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -11,6 +12,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import javafx.event.ActionEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,6 +49,7 @@ public class TicTacToeController implements Initializable {
     {
         gridPane.setGridLinesVisible(true);
     }
+    Text circle = new Text("O");
     @FXML
     private void mouseEntered(MouseEvent e) {
         Node source = (Node)e.getSource() ;
@@ -56,6 +62,27 @@ public class TicTacToeController implements Initializable {
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
+//      Puts the circle in the center
+        GridPane.setHalignment(circle, HPos.CENTER);
+//      Sets the font for the circle
+        circle.setFont(Font.font("Arial", FontWeight.BOLD, 80));
+//      Adds the circle to the box
+        gridPane.add(circle, colIndex, rowIndex);
+    }
+    @FXML
+    private void mouseExited(MouseEvent e) {
+        Node source = (Node)e.getSource() ;
+        Integer colIndex = GridPane.getColumnIndex(source);
+        Integer rowIndex = GridPane.getRowIndex(source);
+        if(colIndex == null)
+            colIndex = 0;
+        if(rowIndex == null)
+            rowIndex = 0;
+        this.rowIndex = rowIndex;
+        this.colIndex = colIndex;
+        System.out.printf("Mouse exited cell [%d, %d]%n", colIndex, rowIndex);
+//      Removes the circle from the box
+        gridPane.getChildren().remove(circle);
     }
 
     @FXML
