@@ -49,40 +49,49 @@ public class TicTacToeController implements Initializable {
     {
         gridPane.setGridLinesVisible(true);
     }
-    Text circle = new Text("O");
+
+    Text move = new Text("O");
+    boolean player = true;
+
+    private void mouseEvent(MouseEvent e) {
+        Node source = (Node)e.getSource();
+        Integer colIndex = GridPane.getColumnIndex(source);
+        Integer rowIndex = GridPane.getRowIndex(source);
+        if(colIndex == null)
+            colIndex = 0;
+        if(rowIndex == null)
+            rowIndex = 0;
+        this.rowIndex = rowIndex;
+        this.colIndex = colIndex;
+        move.setFont(Font.font("Arial", FontWeight.BOLD, 80));
+        GridPane.setHalignment(move, HPos.CENTER);
+    }
+
     @FXML
     private void mouseEntered(MouseEvent e) {
-        Node source = (Node)e.getSource() ;
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
-        if(colIndex == null)
-            colIndex = 0;
-        if(rowIndex == null)
-            rowIndex = 0;
-        this.rowIndex = rowIndex;
-        this.colIndex = colIndex;
+        mouseEvent(e);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
-//      Puts the circle in the center
-        GridPane.setHalignment(circle, HPos.CENTER);
-//      Sets the font for the circle
-        circle.setFont(Font.font("Arial", FontWeight.BOLD, 80));
 //      Adds the circle to the box
-        gridPane.add(circle, colIndex, rowIndex);
+        gridPane.add(move, colIndex, rowIndex);
     }
+
     @FXML
     private void mouseExited(MouseEvent e) {
-        Node source = (Node)e.getSource() ;
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
-        if(colIndex == null)
-            colIndex = 0;
-        if(rowIndex == null)
-            rowIndex = 0;
-        this.rowIndex = rowIndex;
-        this.colIndex = colIndex;
+        mouseEvent(e);
         System.out.printf("Mouse exited cell [%d, %d]%n", colIndex, rowIndex);
 //      Removes the circle from the box
-        gridPane.getChildren().remove(circle);
+        gridPane.getChildren().remove(move);
+    }
+
+    @FXML
+    private void mouseClick(MouseEvent e) {
+        mouseEvent(e);
+        System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
+        player = !player;
+        if(player)
+            move = new Text("O");
+        else
+            move = new Text("X");
     }
 
     @FXML
