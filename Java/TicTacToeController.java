@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -42,8 +41,6 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Menu fileMenu;
 
-    int rowIndex = 0;
-    int colIndex = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -51,40 +48,49 @@ public class TicTacToeController implements Initializable {
     }
 
     Text move = new Text("O");
+    Integer colIndex;
+    Integer rowIndex;
     boolean player = true;
+    boolean added = false;
 
+//  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
         Node source = (Node)e.getSource();
-        Integer colIndex = GridPane.getColumnIndex(source);
-        Integer rowIndex = GridPane.getRowIndex(source);
+        colIndex = GridPane.getColumnIndex(source);
+        rowIndex = GridPane.getRowIndex(source);
         if(colIndex == null)
             colIndex = 0;
         if(rowIndex == null)
             rowIndex = 0;
-        this.rowIndex = rowIndex;
-        this.colIndex = colIndex;
         move.setFont(Font.font("Arial", FontWeight.BOLD, 80));
         GridPane.setHalignment(move, HPos.CENTER);
     }
 
     @FXML
-    private void mouseEntered(MouseEvent e) {
+    private void handleMouseEntered(MouseEvent e) {
         mouseEvent(e);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
-//      Adds the circle to the box
-        gridPane.add(move, colIndex, rowIndex);
+//    Prevents multiple additions
+        if(!added) {
+//    Adds the circle to the box
+            gridPane.add(move, colIndex, rowIndex);
+//    Prevents mouse over bug
+            move.toBack();
+            added = true;
+        }
     }
 
     @FXML
-    private void mouseExited(MouseEvent e) {
+    private void handleMouseExited(MouseEvent e) {
         mouseEvent(e);
         System.out.printf("Mouse exited cell [%d, %d]%n", colIndex, rowIndex);
 //      Removes the circle from the box
         gridPane.getChildren().remove(move);
+        added = false;
     }
 
     @FXML
-    private void mouseClick(MouseEvent e) {
+    private void handleMouseClick(MouseEvent e) {
         mouseEvent(e);
         System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
         player = !player;

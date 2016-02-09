@@ -10,7 +10,7 @@
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem fx:id="closeItem" mnemonicParsing="false" text="Close" onAction="#handleClose" />
+              <MenuItem fx:id="closeItem" mnemonicParsing="false" onAction="#handleClose" text="Close" />
             </items>
           </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
@@ -32,15 +32,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Pane onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" onMouseClicked="#mouseClick" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Pane onMouseClicked="#handleMouseClick" onMouseExited="#handleMouseExited" onMouseEntered="#handleMouseEntered" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
