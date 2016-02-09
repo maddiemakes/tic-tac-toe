@@ -6,6 +6,7 @@
 - [ ] Mouse hover is lighter color
 - [x] Mouse click places move in box
 - [ ] Prevent making moves in a box where there already is one
+- [ ] Mouse hover is red in box where moves have been made
 - [ ] Board doesn't resize stupidly
 - [ ] *New game* button
 - [ ] Game over message win/lose

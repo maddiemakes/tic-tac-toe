@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -63,6 +64,7 @@ public class TicTacToeController implements Initializable {
         if(rowIndex == null)
             rowIndex = 0;
         move.setFont(Font.font("Arial", FontWeight.BOLD, 80));
+        move.setFill(Color.GRAY);
         GridPane.setHalignment(move, HPos.CENTER);
     }
 
@@ -92,6 +94,7 @@ public class TicTacToeController implements Initializable {
     @FXML
     private void handleMouseClick(MouseEvent e) {
         mouseEvent(e);
+        move.setFill(Color.BLACK);
         System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
         player = !player;
         if(player)
