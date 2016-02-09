@@ -42,10 +42,16 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Menu fileMenu;
 
+    int board[][] = new int[3][3];
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
         gridPane.setGridLinesVisible(true);
+        for(int i = 0; i < 3; i++) {
+            for(int k = 0; k < 3; k++) {
+                board[k][i] = 0;
+            }
+        }
     }
 
     Text move = new Text("O");
@@ -53,6 +59,7 @@ public class TicTacToeController implements Initializable {
     Integer rowIndex;
     boolean player = true;
     boolean added = false;
+
 
 //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
@@ -64,14 +71,16 @@ public class TicTacToeController implements Initializable {
         if(rowIndex == null)
             rowIndex = 0;
         move.setFont(Font.font("Arial", FontWeight.BOLD, 80));
-        move.setFill(Color.GRAY);
         GridPane.setHalignment(move, HPos.CENTER);
     }
 
     @FXML
     private void handleMouseEntered(MouseEvent e) {
         mouseEvent(e);
+        move.setFill(Color.GRAY);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
+        if(board[colIndex][rowIndex] != 0)
+            move.setFill(Color.RED);
 //    Prevents multiple additions
         if(!added) {
 //    Adds the circle to the box
@@ -94,13 +103,19 @@ public class TicTacToeController implements Initializable {
     @FXML
     private void handleMouseClick(MouseEvent e) {
         mouseEvent(e);
-        move.setFill(Color.BLACK);
-        System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
-        player = !player;
-        if(player)
-            move = new Text("O");
-        else
-            move = new Text("X");
+        if(board[colIndex][rowIndex] == 0) {
+            move.setFill(Color.BLACK);
+            System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
+            if (player)
+                board[colIndex][rowIndex] = 1;
+            else
+                board[colIndex][rowIndex] = 2;
+            player = !player;
+            if (player)
+                move = new Text("O");
+            else
+                move = new Text("X");
+        }
     }
 
     @FXML
