@@ -12,8 +12,8 @@ class Node
 {
 	Node leftChild;
 	Node rightChild;
-	Board board;
-	public Node(Node leftChild, Node rightChildi, Board board)
+	int board[][] = TicTacToeController.board;
+	public Node(Node leftChild, Node rightChild, int board[][])
 	{
 		this.rightChild = rightChild;
 		this.leftChild = leftChild;
