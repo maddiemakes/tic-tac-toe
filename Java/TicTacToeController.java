@@ -21,6 +21,15 @@ import java.util.ResourceBundle;
 
 public class TicTacToeController implements Initializable {
 
+//  State variables
+    Text move = new Text("O");
+    Integer colIndex;
+    Integer rowIndex;
+    boolean player = true;
+    boolean added = false;
+    public static int board[][] = new int[3][3];
+
+//  Private declarations @FXML
     @FXML
     private MenuItem aboutItem;
 
@@ -42,24 +51,25 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Menu fileMenu;
 
-    int board[][] = new int[3][3];
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        gridPane.setGridLinesVisible(true);
+    public void initialize(URL location, ResourceBundle resources) {
+        newGame();
+    }
+
+    public void newGame() {
         for(int i = 0; i < 3; i++) {
             for(int k = 0; k < 3; k++) {
                 board[k][i] = 0;
+//                gridPane.getChildren().remove(circle);
+//                gridPane.getChildren().remove(cross);
             }
         }
+        gridPane.setGridLinesVisible(true);
+        player = true;
+        added = false;
+        move = new Text("O");
+        System.out.printf("New game...%n");
     }
-
-    Text move = new Text("O");
-    Integer colIndex;
-    Integer rowIndex;
-    boolean player = true;
-    boolean added = false;
-
 
 //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
@@ -79,8 +89,11 @@ public class TicTacToeController implements Initializable {
         mouseEvent(e);
         move.setFill(Color.GRAY);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
-        if(board[colIndex][rowIndex] != 0)
-            move.setFill(Color.RED);
+        if(board[colIndex][rowIndex] != 0) {
+            move.setFill(Color.WHITE);
+            Node source = (Node)e.getSource();
+            source.setStyle("-fx-background-color:#fd3f3f; -fx-opacity:.4");
+        }
 //    Prevents multiple additions
         if(!added) {
 //    Adds the circle to the box
@@ -95,6 +108,10 @@ public class TicTacToeController implements Initializable {
     private void handleMouseExited(MouseEvent e) {
         mouseEvent(e);
         System.out.printf("Mouse exited cell [%d, %d]%n", colIndex, rowIndex);
+        if(board[colIndex][rowIndex] != 0) {
+            Node source = (Node)e.getSource();
+            source.setStyle("-fx-background-color:#fd3f3f; -fx-opacity:0");
+        }
 //      Removes the circle from the box
         gridPane.getChildren().remove(move);
         added = false;

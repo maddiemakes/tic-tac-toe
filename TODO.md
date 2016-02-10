@@ -3,14 +3,16 @@
 - [x] Board GUI
 - [x] On mouse hover, box puts in potential move
     - [x] On mouse click, knows which box is being clicked
-- [ ] Mouse hover is lighter color
+- [x] Mouse hover is lighter color
 - [x] Mouse click places move in box
-- [ ] Prevent making moves in a box where there already is one
-- [ ] Mouse hover is red in box where moves have been made
+- [x] Prevent making moves in a box where there already is one
+- [x] Mouse hover is red in box where moves have been made
+- [ ] Mouse hover is always on top of other text (so you can see the red on top of moves)
 - [ ] Board doesn't resize stupidly
 - [ ] *New game* button
+- [ ] Game can end
 - [ ] Game over message win/lose
-- [ ] Two player
+- [x] Two player
 - [ ] AI can make moves 
 - [ ] AI makes good moves
 - [ ] AI always wins
