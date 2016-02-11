@@ -2,21 +2,19 @@
 
 public class Tree 
 {
-	Node root;
-	public Tree(Node root)
+	TreeNode root;
+	public Tree(TreeNode root)
 	{
 		this.root = root;
 	}
 }
-class Node
+class TreeNode
 {
-	Node leftChild;
-	Node rightChild;
-	int board[][] = TicTacToeController.board;
-	public Node(Node leftChild, Node rightChild, int board[][])
+	TreeNode leftChild;
+	TreeNode rightChild;
+	int board[][];
+	public TreeNode(int board[][])
 	{
-		this.rightChild = rightChild;
-		this.leftChild = leftChild;
 		this.board = board;
 	}
 }

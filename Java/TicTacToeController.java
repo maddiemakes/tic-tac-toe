@@ -27,7 +27,8 @@ public class TicTacToeController implements Initializable {
     Integer rowIndex;
     boolean player = true;
     boolean added = false;
-    public static int board[][] = new int[3][3];
+    int board[][] = new int[3][3];
+    Tree aiMap;
 
 //  Private declarations @FXML
     @FXML
@@ -132,6 +133,8 @@ public class TicTacToeController implements Initializable {
                 move = new Text("O");
             else
                 move = new Text("X");
+            aiMap = new Tree(new TreeNode(board));
+            System.out.println(aiMap);
         }
     }
 
