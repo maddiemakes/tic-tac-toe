@@ -71,7 +71,10 @@ public class TicTacToeController implements Initializable {
         move = new Text("O");
         System.out.printf("New game...%n");
     }
-
+    public void buildTree(Tree aiMap)
+    {
+        //TODO
+    }
 //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
         Node source = (Node)e.getSource();
@@ -135,6 +138,7 @@ public class TicTacToeController implements Initializable {
                 move = new Text("X");
             aiMap = new Tree(new TreeNode(board));
             System.out.println(aiMap);
+            System.out.println(board);
         }
     }
 
