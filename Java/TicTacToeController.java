@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -9,8 +10,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
-import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -73,7 +72,7 @@ public class TicTacToeController implements Initializable {
     }
     public void buildTree(Tree aiMap)
     {
-        //TODO
+        //TODO generate possible boards and add them to aiMap.root.childList
     }
 //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
@@ -137,8 +136,9 @@ public class TicTacToeController implements Initializable {
             else
                 move = new Text("X");
             aiMap = new Tree(new TreeNode(board));
-            System.out.println(aiMap);
-            System.out.println(board);
+            buildTree(aiMap);
+            //System.out.println(aiMap);
+            //System.out.println(board);
         }
     }
 
