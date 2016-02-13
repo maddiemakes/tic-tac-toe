@@ -72,8 +72,31 @@ public class TicTacToeController implements Initializable {
     }
     public void buildTree(Tree aiMap)
     {
-        //TODO generate possible boards and add them to aiMap.root.childList
+
+        for(int i = 0;i < 3; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                int[][] tempBoard = new int[3][3];
+                for(int k = 0; k < 3; k++)
+                {
+                    for(int l = 0; l < 3; l++)
+                    {
+                        tempBoard[k][l] = aiMap.root.board[k][l];
+                    }
+                }
+                if(tempBoard[i][j] == 0)
+                {
+                    tempBoard[i][j] = 2;
+                    aiMap.root.childList.add(new TreeNode(tempBoard));
+                    //System.out.println(tempBoard[i][j]);
+                    //System.out.println(board[i][j]);
+                }
+            }
+
+        }
     }
+    //TODO score boards in aiMap.root.childList
 //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
         Node source = (Node)e.getSource();
