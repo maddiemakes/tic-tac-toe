@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -16,6 +14,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TicTacToeController implements Initializable {
@@ -26,6 +25,7 @@ public class TicTacToeController implements Initializable {
     Integer rowIndex;
     boolean player = true;
     boolean added = false;
+    int gameWin = 0;
     int board[][] = new int[3][3];
     Tree aiMap;
 
@@ -96,6 +96,54 @@ public class TicTacToeController implements Initializable {
 
         }
     }
+    //TODO score boards in aiMap.root.childList
+
+    private void gameOver() {
+        for(int a = 1; a < 3; a++) {
+            if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == a) || (board[2][0] == board[1][1] && board[2][0] == board[0][2] && board[2][0] == a)) {
+                //System.out.println("X Diagonal Win");
+                gameWin = a;
+            }
+            for (int i = 0; i < 3; ++i) {
+                if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == a || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == a)))) {
+                    // System.out.println("X Row or Column win");
+                    gameWin = a;
+                }
+            }
+        }
+        if(gameWin!=0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("Look, a Confirmation Dialog with Custom Actions");
+//            alert.setContentText("Choose your option.");
+
+            alert.setHeaderText(null);
+            if(gameWin == 1) {
+                alert.setTitle("Game Win");
+                alert.setContentText("A satisfying victory indeed! Play again?");
+            }
+            else {
+                alert.setTitle("Game Lose");
+                alert.setContentText("What a grueling defeat! Play again?");
+            }
+            ButtonType buttonTypeOne = new ButtonType("New Game");
+            ButtonType buttonTypeTwo = new ButtonType("Exit");
+//            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == buttonTypeOne){
+                newGame();
+            }
+            else {
+                System.exit(0);
+                Platform.exit();
+            }
+            alert.showAndWait();
+        }
+    }
+
+//  Contains code repeated by several mouse event functions
     public TreeNode scoreTree()
     {
         //TODO score boards in aiMap.root.childList
@@ -170,6 +218,7 @@ public class TicTacToeController implements Initializable {
             buildTree(aiMap);
             //System.out.println(aiMap);
             //System.out.println(board);
+            gameOver();
         }
     }
 
