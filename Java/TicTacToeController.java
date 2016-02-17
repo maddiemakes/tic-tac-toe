@@ -1,6 +1,7 @@
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.Node;
@@ -53,22 +54,27 @@ public class TicTacToeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        newGame();
+        //newGame();
+        gridPane.setGridLinesVisible(true);
     }
 
     public void newGame() {
         for(int i = 0; i < 3; i++) {
-            for(int k = 0; k < 3; k++) {
+            for (int k = 0; k < 3; k++) {
                 board[k][i] = 0;
 //                gridPane.getChildren().remove(circle);
 //                gridPane.getChildren().remove(cross);
             }
         }
-        gridPane.setGridLinesVisible(true);
         player = true;
         added = false;
         move = new Text("O");
         System.out.printf("New game...%n");
+        try {
+            TicTacToe.scene.setRoot(FXMLLoader.load(getClass().getResource("TicTacToe.fxml")));
+        }catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
     public void buildTree(Tree aiMap)
     {
@@ -139,7 +145,6 @@ public class TicTacToeController implements Initializable {
                 System.exit(0);
                 Platform.exit();
             }
-            alert.showAndWait();
         }
     }
 
@@ -171,8 +176,8 @@ public class TicTacToeController implements Initializable {
         mouseEvent(e);
         move.setFill(Color.GRAY);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
-        if(board[colIndex][rowIndex] != 0) {
-            move.setFill(Color.WHITE);
+        if(board[colIndex][rowIndex] != 0 || !player) {
+            move.setFill(Color.rgb(0,0,0,0));
             Node source = (Node)e.getSource();
             source.setStyle("-fx-background-color:#fd3f3f; -fx-opacity:.4");
         }
@@ -190,7 +195,7 @@ public class TicTacToeController implements Initializable {
     private void handleMouseExited(MouseEvent e) {
         mouseEvent(e);
         System.out.printf("Mouse exited cell [%d, %d]%n", colIndex, rowIndex);
-        if(board[colIndex][rowIndex] != 0) {
+        if(board[colIndex][rowIndex] != 0 || !player) {
             Node source = (Node)e.getSource();
             source.setStyle("-fx-background-color:#fd3f3f; -fx-opacity:0");
         }
@@ -202,7 +207,7 @@ public class TicTacToeController implements Initializable {
     @FXML
     private void handleMouseClick(MouseEvent e) {
         mouseEvent(e);
-        if(board[colIndex][rowIndex] == 0) {
+        if(board[colIndex][rowIndex] == 0 && player) {
             move.setFill(Color.BLACK);
             System.out.printf("Clicked [%d, %d]%n", colIndex, rowIndex);
             if (player)
