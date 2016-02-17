@@ -88,7 +88,7 @@ public class TicTacToeController implements Initializable {
                 if(tempBoard[i][j] == 0)
                 {
                     tempBoard[i][j] = 2;
-                    aiMap.root.childList.add(new TreeNode(tempBoard));
+                    aiMap.root.childList.add(new TreeNode(tempBoard, i, j));
                     //System.out.println(tempBoard[i][j]);
                     //System.out.println(board[i][j]);
                 }
@@ -96,8 +96,16 @@ public class TicTacToeController implements Initializable {
 
         }
     }
-    //TODO score boards in aiMap.root.childList
-//  Contains code repeated by several mouse event functions
+    public TreeNode scoreTree()
+    {
+        //TODO score boards in aiMap.root.childList
+        return aiMap.root.childList.get(0);
+    }
+    public void aiMove(int[][] newBoard)
+    {
+
+    }
+    //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
         Node source = (Node)e.getSource();
         colIndex = GridPane.getColumnIndex(source);
@@ -158,7 +166,7 @@ public class TicTacToeController implements Initializable {
                 move = new Text("O");
             else
                 move = new Text("X");
-            aiMap = new Tree(new TreeNode(board));
+            aiMap = new Tree(new TreeNode(board, colIndex, rowIndex));
             buildTree(aiMap);
             //System.out.println(aiMap);
             //System.out.println(board);
