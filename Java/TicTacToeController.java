@@ -101,7 +101,7 @@ public class TicTacToeController implements Initializable {
         //TODO score boards in aiMap.root.childList
         return aiMap.root.childList.get(0);
     }
-    public void aiMove(int[][] newBoard)
+    public void aiMove(TreeNode moveOpt)
     {
 
     }
