@@ -7,7 +7,8 @@
 - [x] Mouse click places move in box
 - [x] Prevent making moves in a box where there already is one
 - [x] Mouse hover is red in box where moves have been made
-- [ ] Mouse hover is always on top of other text (so you can see the red on top of moves)
+- ~~[ ] Mouse hover is always on top of other text (so you can see the red on top of moves)~~
+- [x] Mouse hover changes box background to red to say "you can't place here"
 - [ ] Board doesn't resize stupidly
 - [ ] *New game* button
 - [ ] Game can end
