@@ -13,7 +13,7 @@
 - [x] *New game* button
 - [x] Game can end
 - [x] Game over message win/lose
-- [x] Two player
+- ~~[x] Two player~~
 - [x] AI can make moves 
 - [ ] AI makes good moves
 - [ ] AI always wins
