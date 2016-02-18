@@ -16,6 +16,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -74,39 +76,36 @@ public class TicTacToeController implements Initializable {
         System.out.printf("New game...%n");
         try {
             TicTacToe.scene.setRoot(FXMLLoader.load(getClass().getResource("TicTacToe.fxml")));
-        }catch(Exception ex){
+        }
+        catch(Exception ex){
             throw new RuntimeException(ex);
         }
     }
+
     public void buildTree(Tree aiMap)
     {
-
-        for(int i = 0;i < 3; i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
+        for(int i = 0;i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
                 int[][] tempBoard = new int[3][3];
-                for(int k = 0; k < 3; k++)
-                {
-                    for(int l = 0; l < 3; l++)
-                    {
+                for(int k = 0; k < 3; k++) {
+                    for(int l = 0; l < 3; l++) {
                         tempBoard[k][l] = aiMap.root.board[k][l];
                     }
                 }
-                if(tempBoard[i][j] == 0)
-                {
+                if(tempBoard[i][j] == 0) {
                     tempBoard[i][j] = 2;
                     aiMap.root.childList.add(new TreeNode(tempBoard, i, j));
                     //System.out.println(tempBoard[i][j]);
                     //System.out.println(board[i][j]);
                 }
             }
-
         }
     }
     //TODO score boards in aiMap.root.childList
 
     private void gameOver() {
+        if(aiMap.root.childList.size() == 0)
+            gameWin = 3;
         for(int a = 1; a < 3; a++) {
             if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == a) || (board[2][0] == board[1][1] && board[2][0] == board[0][2] && board[2][0] == a)) {
                 //System.out.println("X Diagonal Win");
@@ -129,9 +128,13 @@ public class TicTacToeController implements Initializable {
                 alert.setTitle("Game Win");
                 alert.setContentText("A satisfying victory indeed! Play again?");
             }
-            else {
+            else if(gameWin == 2) {
                 alert.setTitle("Game Lose");
                 alert.setContentText("What a grueling defeat! Play again?");
+            }
+            else if(gameWin == 3) {
+                alert.setTitle("Game Over");
+                alert.setContentText("Your valiant efforts have ended in a draw! Play again?");
             }
             ButtonType buttonTypeOne = new ButtonType("New Game");
             ButtonType buttonTypeTwo = new ButtonType("Exit");
@@ -171,10 +174,46 @@ public class TicTacToeController implements Initializable {
             move.toBack();
             player = true;
             board[moveOpt.colVal][moveOpt.rowVal] = 2;
+            try {
+                Thread.sleep(300);
+            } catch(InterruptedException e) {}
+            gameOver();
         }
         move = new Text("O");
-
     }
+
+
+//    public int minimax(int depth, int turn) {
+//        if (gameWin == 2) return +1;
+//        if (gameWin == 1) return -1;
+//
+//        if (pointsAvailable.isEmpty()) return 0;
+//
+//        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+//
+//        for (int i = 0; i < pointsAvailable.size(); ++i) {
+//            Point point = pointsAvailable.get(i);
+//            if (turn == 1) {
+//                placeAMove(point, 1);
+//                int currentScore = minimax(depth + 1, 2);
+//                max = Math.max(currentScore, max);
+//
+//                if(depth == 0)System.out.println("Score for position "+(i+1)+" = "+currentScore);
+//                if(currentScore >= 0){ if(depth == 0) computersMove = point;}
+//                if(currentScore == 1){board[point.x][point.y] = 0; break;}
+//                if(i == pointsAvailable.size()-1 && max < 0){if(depth == 0)computersMove = point;}
+//            } else if (turn == 2) {
+//                placeAMove(point, 2);
+//                int currentScore = minimax(depth + 1, 1);
+//                min = Math.min(currentScore, min);
+//                if(min == -1){board[point.x][point.y] = 0; break;}
+//            }
+//            board[point.x][point.y] = 0; //Reset this point
+//        }
+//        return turn == 1?max:min;
+//    }
+
+
     //  Contains code repeated by several mouse event functions
     private void mouseEvent(MouseEvent e) {
         Node source = (Node)e.getSource();
@@ -242,8 +281,8 @@ public class TicTacToeController implements Initializable {
             buildTree(aiMap);
             //System.out.println(aiMap);
             //System.out.println(board);
-            gameOver();
             player = false;
+            gameOver();
             aiMove(scoreTree());
         }
     }
