@@ -10,12 +10,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.RadialGradient;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class TicTacToeController implements Initializable {
@@ -152,10 +154,25 @@ public class TicTacToeController implements Initializable {
     public TreeNode scoreTree()
     {
         //TODO score boards in aiMap.root.childList
-        return aiMap.root.childList.get(0);
+        Random rand = new Random();
+        int k = rand.nextInt(aiMap.root.childList.size());
+        while(k<=0)
+            k++;
+        return aiMap.root.childList.get(k);
     }
     public void aiMove(TreeNode moveOpt)
     {
+        if(!player) {
+            move = new Text("X");
+            move.setFill(Color.BLACK);
+            move.setFont(Font.font("Arial", FontWeight.BOLD, 80));
+            GridPane.setHalignment(move, HPos.CENTER);
+            gridPane.add(move, moveOpt.colVal, moveOpt.rowVal);
+            move.toBack();
+            player = true;
+            board[moveOpt.colVal][moveOpt.rowVal] = 2;
+        }
+        move = new Text("O");
 
     }
     //  Contains code repeated by several mouse event functions
@@ -173,6 +190,8 @@ public class TicTacToeController implements Initializable {
 
     @FXML
     private void handleMouseEntered(MouseEvent e) {
+        if(player)
+            move = new Text("O");
         mouseEvent(e);
         move.setFill(Color.GRAY);
         System.out.printf("Mouse entered cell [%d, %d]%n", colIndex, rowIndex);
@@ -214,7 +233,7 @@ public class TicTacToeController implements Initializable {
                 board[colIndex][rowIndex] = 1;
             else
                 board[colIndex][rowIndex] = 2;
-            player = !player;
+            player = false;
             if (player)
                 move = new Text("O");
             else
@@ -224,6 +243,8 @@ public class TicTacToeController implements Initializable {
             //System.out.println(aiMap);
             //System.out.println(board);
             gameOver();
+            player = false;
+            aiMove(scoreTree());
         }
     }
 
