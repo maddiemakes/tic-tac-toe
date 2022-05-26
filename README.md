@@ -10,6 +10,6 @@ If you don't like how a match is going, or the match has ended, you can start a 
 - Close/exit exits the game.
 
 ###About 
-> Written by Samuel Murray and Jordan Wells
+> Written by Samuel Murray and Madison Wells
 
 > February 2016
